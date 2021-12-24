@@ -1,1 +1,42 @@
+package AnimalThread;
+public class AnimalThread extends Thread {
+    String Name;
+    int Priority;
+    public AnimalThread(String Name, int Priority) {
+        this.Name = Name;
+        this.Priority = Priority;
+    }
+    @Override
+    public void run() {
+        Thread.currentThread().setPriority(Priority);
+        Thread.currentThread().setName(Name);
+        for (int i = 1; i <= 18; i++) {
+            try {
+                Thread.sleep( Thread.currentThread().getPriority() * 66 );
+                System.out.println(getName() + " преодолел дистанцию в " + i + " метров ");
+            } catch (InterruptedException e) {
+            }
+            if (i==18/2) {
+                setRacerPriority(currentThread());
+            }
+        }
+        System.out.println(getName() + " достиг цели ");
+    }void setRacerPriority(Thread thread){
+        if (thread.getName()=="Ушастый"){
+            currentThread().setPriority(4);
 
+        }
+        else{
+            currentThread().setPriority(2);
+
+        }
+    }
+}
+class RabbitAndTurtle {
+    public static void main(String[] args) {
+        AnimalThread RabbitThread = new AnimalThread("Ушастый", 5);
+        AnimalThread TurtleThread = new AnimalThread("Черепашка", 7);
+        RabbitThread.start();
+        TurtleThread.start();
+    }
+}
